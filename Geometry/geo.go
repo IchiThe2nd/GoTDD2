@@ -1,7 +1,7 @@
 package main
 
 import "math"
-
+//commentc
 type Shape interface {
 	Area() float64
 }
