@@ -1,10 +1,18 @@
 package main
 
-import "errors"
-
 type Dictionary map[string]string
+type DictionaryErr string
 
-var ErrNotFound = errors.New("could not find")
+const (
+	ErrWordExists = DictionaryErr("word exists")
+
+	ErrWordDoesNotExist = DictionaryErr("word doesnt exists")
+	ErrNotFound         = DictionaryErr("could not find")
+)
+
+func (e DictionaryErr) Error() string {
+	return string(e)
+}
 
 func (d Dictionary) Search(word string) (string, error) {
 	definition, ok := d[word]
@@ -15,9 +23,32 @@ func (d Dictionary) Search(word string) (string, error) {
 
 }
 
-func (d Dictionary) Add(word, definition string) {
-	d[word] = definition
+func (d Dictionary) Add(word, definition string) error {
 
+	_, err := d.Search(word)
+	switch err {
+	case ErrNotFound:
+		d[word] = definition
+	case nil:
+		return ErrWordExists
+	default:
+		return err
+	}
+	return nil
 }
 
-//pg 82 pointers copies et al an intresting
+func (d Dictionary) Update(word, definition string) error {
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		return ErrWordDoesNotExist
+	case nil:
+		d[word] = definition
+	default:
+		return err
+	}
+	return nil
+}
+
+//pg 88 pointers copies et al an intresting
