@@ -51,4 +51,6 @@ func (d Dictionary) Update(word, definition string) error {
 	return nil
 }
 
-//pg 88 pointers copies et al an intresting
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
+}

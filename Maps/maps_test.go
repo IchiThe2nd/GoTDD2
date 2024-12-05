@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestSearch(t *testing.T) {
 
@@ -68,6 +70,18 @@ func TestUpdate(t *testing.T) {
 		assertError(t, err, ErrWordDoesNotExist)
 
 	})
+}
+
+func TestDelete(t *testing.T) {
+	word := "test"
+	definition := "this is a test"
+	dictionary := Dictionary{word: definition}
+	dictionary.Delete(word)
+
+	_, err := dictionary.Search(word)
+	if err != ErrNotFound {
+		t.Errorf("Expected %q to be deleted", word)
+	}
 }
 
 // Assertions
