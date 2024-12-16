@@ -13,8 +13,15 @@ type Store interface {
 func Server(store Store) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		data, _ := store.Fetch(r.Context())
+		data, err := store.Fetch(r.Context())
+
+		if err != nil {
+			return // make log error later
+		}
+
 		fmt.Fprint(w, data)
+
+		// below is "basically" how context.CancelFunc() works
 		//ctx := r.Context()
 		//data := make(chan string, 1)
 		//

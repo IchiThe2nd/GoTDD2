@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log"
 	"net/http"
 	"net/http/httptest"
@@ -39,26 +40,29 @@ func (s *SpyStore) Fetch(ctx context.Context) (string, error) {
 	}
 }
 
-//	func (s *SpyStore) Cancel() {
-//		s.cancelled = true
-//	}
-//
-//	func (s *SpyStore) assertWasNotCancelled() {
-//		s.t.Helper()
-//		if s.cancelled {
-//			s.t.Error("store was told to Cancel when it shouldnt have")
-//		}
-//	}
-//
-//	func (s *SpyStore) assertWasCancelled() {
-//		s.t.Helper()
-//		if !s.cancelled {
-//			s.t.Error("store was not told to Cancel when it shouldnt have")
-//		}
-//	}
+type SpyResponseWriter struct {
+	written bool
+}
+
+func (s *SpyResponseWriter) Header() http.Header {
+	s.written = true
+	return nil
+}
+
+func (s *SpyResponseWriter) Write([]byte) (int, error) {
+	s.written = true
+	return 0, errors.New("not implemented yet")
+}
+
+func (s *SpyResponseWriter) WriteHeader(statusCode int) {
+	s.written = true
+}
+
 func TestServer(t *testing.T) {
-	data := "hello, world"
+
 	t.Run("returns data from store", func(t *testing.T) {
+
+		data := "hello, world"
 		store := &SpyStore{response: data, t: t}
 		svr := Server(store)
 
@@ -69,13 +73,13 @@ func TestServer(t *testing.T) {
 
 		if response.Body.String() != data {
 			t.Errorf(`got "%s", want "%s"`, response.Body.String(), data)
-		}
 
-		//store.assertWasNotCancelled()
+		}
 
 	})
 
 	t.Run("tells store to cancel work if request is cancelled", func(t *testing.T) {
+		data := "hello, world"
 		store := &SpyStore{response: data, t: t}
 		svr := Server(store)
 
@@ -85,10 +89,13 @@ func TestServer(t *testing.T) {
 		time.AfterFunc(5*time.Millisecond, cancel)
 
 		request = request.WithContext(cancellingCtx)
-		response := httptest.NewRecorder()
+		response := &SpyResponseWriter{}
 		svr.ServeHTTP(response, request)
 
-		//		store.assertWasCancelled()
+		if response.written {
+			t.Error("a response should not have been written")
+
+		}
 
 	})
 }
