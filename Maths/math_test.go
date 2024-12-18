@@ -3,6 +3,8 @@ package clockface_test
 import (
 	"testing"
 	"time"
+
+	"github.com/IchiThe2nd/GoTDD2/Maths/clockface"
 )
 
 func TestSecondHandAtMidnight(t *testing.T) {
