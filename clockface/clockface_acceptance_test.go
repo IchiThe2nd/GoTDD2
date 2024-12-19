@@ -1,12 +1,12 @@
-package clockface
+package clockface_test
 
+//ignore until after uniit tests
 /*
 import (
 	"math"
 	"testing"
 	"time"
 )
-
 
 func TestSecondHand(t *testing.T) {
 	t.Run("second hand at midnigt", func(t *testing.T) {

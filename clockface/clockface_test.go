@@ -1,18 +1,28 @@
-package clockface_test
+package clockface
 
 import (
 	"math"
 	"testing"
 	"time"
+	//"github.com/IchiThe2nd/GoTDD2/clockface"
 )
 
 func TestSecondInRadians(t *testing.T) {
-	thirtySeconds := time.Date(312, time.October, 28, 0, 0, 30, 0, time.UTC)
-	want := math.Pi
-	got := secondsInRadians(thirtySeconds)
-
-	if want != got {
-		t.Fatalf("wanted %v radians , got %v", want, got)
+	cases := []struct {
+		time  time.Time
+		angle float64
+	}{
+		{simpleTime(0, 0, 30), math.Pi},
+		{simpleTime(0, 0, 0), 0},
+		{simpleTime(0, 0, 45), (math.Pi / 2) * 3},
+		{simpleTime(0, 0, 7), (math.Pi / 30) * 7},
 	}
-
+	for _, c := range cases {
+		t.Run(testName(c.time), func(t *testing.T) {
+			got := secondsInRadians(c.time)
+			if got != c.angle {
+				t.Fatalf("wanted %v got %v", c.angle, got)
+			}
+		})
+	}
 }
