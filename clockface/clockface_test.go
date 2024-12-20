@@ -6,8 +6,7 @@ import (
 	"time"
 
 	"github.com/IchiThe2nd/GoTDD2/clockface"
-	//"github.com/IchiThe2nd/GoTDD2/clockface"
-	//"github.com/quii/learn-go-with-tests/math/v7/clockface"
+	//"github.com/IchiThe2nd/GoTDD2/clockface" saved because I keep fucking up imports
 )
 
 func TestSVGWriterAt30Seconds(t *testing.T) {
