@@ -1,32 +1,30 @@
 package clockface_test
 
 import (
+	"bytes"
+	"encoding/xml"
 	"testing"
 	"time"
 
 	"github.com/IchiThe2nd/GoTDD2/clockface"
 )
 
-func TestSecondHand(t *testing.T) {
-	t.Run("second hand at midnight", func(t *testing.T) {
-		tm := time.Date(1337, time.January, 1, 0, 0, 0, 0, time.UTC)
+func TestSVGWriterAtMidnight(t *testing.T) {
+	tm := time.Date(1337, time.January, 1, 0, 0, 0, 0, time.UTC)
 
-		want := clockface.Point{X: 150, Y: 150 + 90}
-		got := clockface.SecondHand(tm)
+	b := bytes.Buffer{}
+	clockface.SVGWriter(&b, tm)
 
-		if got != want {
-			t.Errorf("Got %v,wanted %v", got, want)
+	svg := Svg{}
+	xml.Unmarshal(b.Bytes(), &svg)
+
+	x2 := "150"
+	y2 := "60"
+
+	for _, line := range svg.Line {
+		if line.X2 == x2 && line.Y2 == y2 {
+			return
 		}
-	})
-
-	t.Run("second hand at 30 seconds", func(t *testing.T) {
-		tm := time.Date(1337, time.January, 1, 0, 0, 0, 0, time.UTC)
-
-		want := clockface.Point{X: 150, Y: 150 + 90}
-		got := clockface.SecondHand(tm)
-
-		if got != want {
-			t.Errorf("Got %v,wanted %v", got, want)
-		}
-	})
+	}
+	t.Errorf("expected to find the second hand  x2 of %+v and y2 of %+v ,in the vg file %v", x2, y2, b.String())
 }
