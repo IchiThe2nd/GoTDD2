@@ -65,7 +65,7 @@ func simpleTime(hours, minutes, seconds int) time.Time {
 	return time.Date(312, time.October, 28, hours, minutes, seconds, 0, time.UTC)
 }
 
-func testName(t time.Time) string {
+func testName(t time.Time) string { //not exportes to clockface_test?
 	return t.Format("15:04:05")
 }
 

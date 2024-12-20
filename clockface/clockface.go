@@ -11,6 +11,8 @@ type Point struct {
 	Y float64
 }
 
+// Seconds
+
 func secondsInRadians(t time.Time) float64 {
 	return (math.Pi / (30 / (float64(t.Second()))))
 }
