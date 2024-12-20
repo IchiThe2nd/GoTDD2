@@ -38,6 +38,8 @@ func TestSVGWriterSecondHand(t *testing.T) {
 		time time.Time
 		line Line
 	}{
-		{///}
-	}
+		{
+			simpleTime(0,0,0),
+			Line{150,150,150,60},
+	},
 }
