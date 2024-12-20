@@ -5,8 +5,6 @@ import (
 	//"github.com/IchiThe2nd/GoTDD2/clockface"
 )
 
-/*
-	commentted out to get unit Min working
 
 // zek xml-go
 
@@ -85,7 +83,7 @@ import (
 		}
 	}
 
-// helpers below ////////////////////
+// some helpers below ////////////////////
 //
 
 	func containsLine(l Line, ls []Line) bool {
