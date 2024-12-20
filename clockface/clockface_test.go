@@ -10,6 +10,8 @@ import (
 	//"github.com/quii/learn-go-with-tests/math/v7/clockface"
 )
 
+/* moved to clocacc test
+
 func TestSVGWriterAtMidnight(t *testing.T) {
 	tm := time.Date(1337, time.January, 1, 0, 0, 0, 0, time.UTC)
 
@@ -23,6 +25,7 @@ func TestSVGWriterAtMidnight(t *testing.T) {
 		t.Errorf("Expected to find the second hand %v, in the SVG output %v", want, got)
 	}
 }
+*/
 
 func TestSVGWriterAt30Seconds(t *testing.T) {
 	tm := time.Date(1337, time.January, 1, 0, 0, 30, 0, time.UTC)
