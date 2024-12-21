@@ -1,9 +1,18 @@
 package clockface_test
 
+import (
+	"bytes"
+	"encoding/xml"
+	"testing"
+	"time"
+
+	"github.com/IchiThe2nd/GoTDD2/clockface"
+)
+
 //"github.com/IchiThe2nd/GoTDD2/clockface"
 
 // zek xml-go
-/*
+
 type SVG struct {
 	XMLName xml.Name `xml:"svg"`
 	Text    string   `xml:",chardata"`
@@ -85,8 +94,8 @@ func TestSVGWriterHourHand(t *testing.T) {
 		line Line
 	}{
 		{
-			simpleTime(0, 0, 0),
-			Line{150, 150, 150, 80},
+			simpleTime(6, 0, 0),
+			Line{150, 150, 150, 200}, //this test is at 6 not 12 like the rest boo bad form
 		},
 	}
 
@@ -123,4 +132,3 @@ func simpleTime(hours, minutes, seconds int) time.Time {
 func testName(t time.Time) string {
 	return t.Format("15:04:05")
 }
-*/
