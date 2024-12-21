@@ -4,7 +4,7 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"github.com/IchiThe2nd/GoTDD2/blogposts"
+	blogposts "github.com/IchiThe2nd/GoTDD2/blogposts"
 	//blogposts "github.com/IchiThe2nd/GoTDD2/blogposts
 )
 
