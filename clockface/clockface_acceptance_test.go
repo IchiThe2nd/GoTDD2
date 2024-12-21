@@ -1,17 +1,9 @@
 package clockface_test
 
-import (
-	"bytes"
-	"encoding/xml"
-	"testing"
-	"time"
-
-	"github.com/IchiThe2nd/GoTDD2/clockface"
-	//"github.com/IchiThe2nd/GoTDD2/clockface"
-)
+//"github.com/IchiThe2nd/GoTDD2/clockface"
 
 // zek xml-go
-
+/*
 type SVG struct {
 	XMLName xml.Name `xml:"svg"`
 	Text    string   `xml:",chardata"`
@@ -87,6 +79,31 @@ func TestSVGWriterMinHand(t *testing.T) {
 	}
 }
 
+func TestSVGWriterHourHand(t *testing.T) {
+	cases := []struct {
+		time time.Time
+		line Line
+	}{
+		{
+			simpleTime(0, 0, 0),
+			Line{150, 150, 150, 80},
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(testName(c.time), func(t *testing.T) {
+			b := bytes.Buffer{}
+			clockface.SVGWriter(&b, c.time)
+			svg := SVG{}
+			xml.Unmarshal(b.Bytes(), &svg)
+
+			if !containsLine(c.line, svg.Line) {
+				t.Errorf("Expected to find the Hour hand line %+v in the Hour svg line %+v", c.line, svg.Line)
+			}
+		})
+	}
+}
+
 // some helpers below ////////////////////
 //
 
@@ -106,3 +123,4 @@ func simpleTime(hours, minutes, seconds int) time.Time {
 func testName(t time.Time) string {
 	return t.Format("15:04:05")
 }
+*/

@@ -21,12 +21,20 @@ func minutesInRadians(t time.Time) float64 { // radians from seconds + radians f
 	return (secondsInRadians(t) / 60) + (math.Pi / (30 / float64(t.Minute())))
 }
 
+func hoursInRadians(t time.Time) float64 { // radians from seconds + radians from minutes
+	return (minutesInRadians(t) / 12) + math.Pi/(6/float64(t.Hour()%12))
+}
+
 func secondHandPoint(t time.Time) Point {
 	return angleToPoint(secondsInRadians(t))
 }
 
 func minuteHandPoint(t time.Time) Point {
 	return angleToPoint(minutesInRadians(t))
+}
+
+func hourHandPoint(t time.Time) Point {
+	return angleToPoint(hoursInRadians(t))
 }
 
 func angleToPoint(angle float64) Point {
