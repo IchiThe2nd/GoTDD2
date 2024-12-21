@@ -19,8 +19,8 @@ func TestMinutesInRadians(t *testing.T) {
 	for _, c := range cases {
 		t.Run(testName(c.time), func(t *testing.T) {
 			got := minutesInRadians(c.time)
-			if got != c.angle {
-				t.Fatalf("wanted %v radians got %v", c.angle, got)
+			if !roughlyEqualFloat64(got, c.angle) {
+				t.Fatalf("Wanted %v mintes radians got %v", c.angle, got)
 			}
 		})
 	}
@@ -41,7 +41,7 @@ func TestHourInRadians(t *testing.T) {
 		t.Run(testName(c.time), func(t *testing.T) {
 			got := hoursInRadians(c.time)
 			if !roughlyEqualFloat64(got, c.angle) {
-				t.Fatalf("WWanted %v radians got %v", c.angle, got)
+				t.Fatalf("WWanted %v Hours radians got %v", c.angle, got)
 			}
 		})
 	}
@@ -61,8 +61,7 @@ func TestMinuteHandPoint(t *testing.T) {
 		t.Run(testName(c.time), func(t *testing.T) {
 			got := minuteHandPoint(c.time)
 			if !roughlyEqualPoint(got, c.point) {
-
-				t.Fatalf("wanted %v Point butbut got %v", c.point, got)
+				t.Fatalf("WWanted %v Minutes Points got %v", c.point, got)
 			}
 		})
 	}
