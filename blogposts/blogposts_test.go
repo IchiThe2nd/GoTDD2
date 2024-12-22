@@ -19,13 +19,12 @@ func (s StubFailinngFS) Open(name string) (fs.File, error) {
 }
 
 func TestNewBlogPost(t *testing.T) {
-	const ( // make some semi constants
+	const (
 		firstBody = `Title: Post 1
-Description : Description 1`
+Description: Description 1`
 		secondBody = `Title: Post 2
-Description : Description 2`
+Description: Description 2`
 	)
-
 	fs := fstest.MapFS{ //make  a filesystem
 		"hello world.md":  {Data: []byte(firstBody)},
 		"hello-world2.md": {Data: []byte(secondBody)},

@@ -16,6 +16,7 @@ func NewPostFromFS(fileSystem fs.FS) ([]Post, error) {
 			return nil, err //clarify failing if one file fails or not
 		}
 		posts = append(posts, post)
+
 	}
 	return posts, nil
 }
