@@ -4,17 +4,27 @@ import (
 	"io/fs"
 )
 
-type Post struct {
-}
-
-func NewPostFromFS(filesystem fs.FS) ([]Post, error) {
-	dir, err := fs.ReadDir(filesystem, ".")
+func NewPostFromFS(fileSystem fs.FS) ([]Post, error) {
+	dir, err := fs.ReadDir(fileSystem, ".")
 	if err != nil {
 		return nil, err
 	}
 	var posts []Post
-	for range dir {
-		posts = append(posts, Post{})
+	for _, f := range dir {
+		post, err := getPost(fileSystem, f.Name())
+		if err != nil {
+			return nil, err //clarify failing if one file fails or not
+		}
+		posts = append(posts, post)
 	}
 	return posts, nil
+}
+
+func getPost(fileSystem fs.FS, fileName string) (Post, error) {
+	postFile, err := fileSystem.Open(fileName) //opened a file
+	if err != nil {
+		return Post{}, err
+	}
+	defer postFile.Close()
+	return newPost(postFile) //
 }
