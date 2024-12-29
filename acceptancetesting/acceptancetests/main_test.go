@@ -4,13 +4,13 @@ import (
 	"testing"
 	"time"
 
-	acceptancetests "github.com/IchiThe2nd/GoTDD2/acceptancetesting/acceptancetests/acceptancetests/gracefulSD"
-	assert "github.com/IchiThe2nd/GoTDD2/acceptancetesting/assert"
+	acceptancetests "github.com/IchiThe2nd/GoTDD2/acceptancetesting/acceptancetests/gracefulSD"
+	"github.com/IchiThe2nd/GoTDD2/acceptancetesting/assert"
 )
 
 const (
 	port = "8080"
-	url  = "http://localhost: " + port
+	url  = "http://localhost:" + port
 )
 
 func TestGracefulShutdown(t *testing.T) {
@@ -20,15 +20,16 @@ func TestGracefulShutdown(t *testing.T) {
 	}
 	t.Cleanup(cleanup)
 
-	//check the server works before shutting down
+	// just check the server works before we shut things down
 	assert.CanGet(t, url)
 
-	//fire off a request and before it has a chance to respond send SIGTERM.
+	// fire off a request, and before it has a chance to respond send SIGTERM.
 	time.AfterFunc(50*time.Millisecond, func() {
-		assert.Noerror(t, sendInterrupt())
+		assert.NoError(t, sendInterrupt())
 	})
-	// withour gracefulshtdown this would fail
+	// Without graceful shutdown, this would fail
 	assert.CanGet(t, url)
-}
 
-//assertions andc helpers
+	// after interrupt, the server should be shutdown, and no more requests will work
+	assert.CantGet(t, url)
+}
