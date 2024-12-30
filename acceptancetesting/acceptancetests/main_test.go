@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	acceptancetests "github.com/IchiThe2nd/GoTDD2/acceptancetesting/acceptancetests/gracefulSD"
+	acceptancetests "github.com/IchiThe2nd/GoTDD2/acceptancetesting"
 	"github.com/IchiThe2nd/GoTDD2/acceptancetesting/assert"
 )
 

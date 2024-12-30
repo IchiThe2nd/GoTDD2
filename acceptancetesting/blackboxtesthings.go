@@ -9,8 +9,6 @@ import (
 	"path/filepath"
 	"syscall"
 	"time"
-	//"github.com/quii/go-graceful-shutdown/acceptancetests"
-	//"github.com/quii/go-graceful-shutdown/assert"
 )
 
 const (
